@@ -1,9 +1,16 @@
+import os
 from tabulate import tabulate
-import Storage.Pedido as ped
+import requests
 from datetime import datetime
+
+def  getAllPedidos():
+     petition = requests.get('http://172.16.106.94:3000/0')
+     data = petition.json()
+     return data
+
 def getAllProcesoPedido():
     ProcesoPedidos = []
-    for val in ped.pedido:
+    for val in getAllPedidos.pedido:
         ProcesoPedidos.append({
                     "Codigo_pedido": val.get("codigo_pedido"),
                     "Estado": val.get('estado')
@@ -12,7 +19,7 @@ def getAllProcesoPedido():
 
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     PedidoEntregado = []
-    for val in ped.pedido:
+    for val in getAllPedidos.pedido:
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
             val["fecha_entrega"] = val.get("fecha_esperada")
         if val.get("estado") == "Entregado":
@@ -33,7 +40,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
 
 def getAllPedidosEntregadosConAntelacion():
     PedidoEntregado = []
-    for val in ped.pedido:
+    for val in getAllPedidos.pedido:
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
             val["fecha_entrega"] = val.get("fecha_esperada")
         if val.get("estado") == "Entregado":
@@ -53,7 +60,7 @@ def getAllPedidosEntregadosConAntelacion():
     return PedidoEntregado
 def getAllPedidosRechazados():
     PedidosRechazados = []
-    for val in ped.pedido:
+    for val in getAllPedidos.pedido:
         if("2009") in val.get("fecha_pedido") and val.get("estado") == "Rechazado":
             PedidosRechazados.append({
                 "Codigo_pedido": val.get("codigo_pedido"),
@@ -65,7 +72,7 @@ def getAllPedidosRechazados():
 
 def getAllPedidosEnero():
     PedidosEnero = []
-    for val in ped.pedido:
+    for val in getAllPedidos.pedido:
         fecha_entregado = val.get("fecha_entrega")
         if fecha_entregado:
             date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
@@ -80,7 +87,8 @@ def getAllPedidosEnero():
     return PedidosEnero
 
 def menu():
-    print(""" 
+    while True:
+        print(""" 
   ___                  _               _                   _ _    _        
  | _ \___ _ __ ___ _ _| |_ ___ ___  __| |___   _ __ ___ __| (_)__| |___ ___
  |   / -_| '_ / _ | '_|  _/ -_(_-< / _` / -_) | '_ / -_/ _` | / _` / _ (_-<
@@ -92,15 +100,18 @@ def menu():
         3. Obtener los pedidos entregados con antelacion
         4. Obtener los pedidos rechazados
         5. Obtener todos los pedidos de Enero sin importar su año
+        6. Regresar al Menu Principal
     """)
-    opcion = int(input("\nIngrese la opcion que desea realizar: "))
-    if opcion == 1:
-        print(tabulate(getAllProcesoPedido(), headers="keys", tablefmt="fancy_grid"))
-    if opcion == 2:
-        print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="fancy_grid"))
-    if opcion == 3:
-        print(tabulate(getAllPedidosEntregadosConAntelacion(), headers="keys", tablefmt="fancy_grid"))
-    if opcion == 4:
-        print(tabulate(getAllPedidosRechazados(), headers="keys", tablefmt="fancy_grid"))
-    if opcion == 5:
-        print(tabulate(getAllPedidosEnero(), headers="keys", tablefmt="fancy_grid"))
+        opcion = int(input("\nIngrese la opcion que desea realizar: "))
+        if opcion == 1:
+            print(tabulate(getAllProcesoPedido(), headers="keys", tablefmt="fancy_grid"))
+        elif opcion == 2:
+            print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="fancy_grid"))
+        elif opcion == 3:
+            print(tabulate(getAllPedidosEntregadosConAntelacion(), headers="keys", tablefmt="fancy_grid"))
+        elif opcion == 4:
+            print(tabulate(getAllPedidosRechazados(), headers="keys", tablefmt="fancy_grid"))
+        elif opcion == 5:
+            print(tabulate(getAllPedidosEnero(), headers="keys", tablefmt="fancy_grid"))
+        elif opcion == 6:
+            break
