@@ -7,6 +7,11 @@ def  getAllEmpleados():
      data = petition.json()
      return data
 
+def getAllEmpleadoCodigo(codigo):
+    for val in getAllEmpleados():
+        if(val.get('codigo_cliente') == codigo):
+            return[val]
+
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail = []
     for val in getAllEmpleados.empleados:

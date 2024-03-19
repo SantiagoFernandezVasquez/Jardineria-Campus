@@ -8,6 +8,11 @@ def  getAllPedidos():
      data = petition.json()
      return data
 
+def getAllPedidosCodigo(codigo):
+    for val in getAllPedidos():
+        if(val.get('codigo_cliente') == codigo):
+            return[val]
+
 def getAllProcesoPedido():
     ProcesoPedidos = []
     for val in getAllPedidos.pedido:

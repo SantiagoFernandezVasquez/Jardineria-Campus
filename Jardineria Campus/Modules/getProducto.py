@@ -2,13 +2,28 @@ import os
 from tabulate import tabulate
 import requests
 
+def clear():
+    os.system('cls')
+clear()
+
 def GetAllData():
-    peticion = requests.get('http://172.16.106.94:3000/0')
+    peticion = requests.get('http://localhost:3000/productos')
     data = peticion.json()
     return data
+
+def getAllProductoCodigo(codigo):
+    for val in GetAllData():
+        if(val.get('codigo_producto') == codigo):
+            return[val]
+
+def getAllProductoCodigo(codigo):
+    for val in GetAllData():
+        if(val.get('codigo_producto') == codigo):
+            return[val]
+        
 def getAllStocksPrecioGama(gama, stock):
     condiciones = []
-    for val in GetAllData.producto:
+    for val in GetAllData():
         if(val.get("gama") == gama and val.get("cantidad_en_stock") >= stock):
             condiciones.append(val)
             def Price(val):
@@ -28,9 +43,12 @@ def getAllStocksPrecioGama(gama, stock):
                 }
     return condiciones
 
-    
+def getProductoCodigo(codigo):
+    peticion = requests.get(f"http:localhost:3000/productos/{codigo}")
+    return[peticion.json()] if peticion.ok  else[]
 def menu():
     while True:
+        clear()
         print("""
   ___                  _               _       ___            _         _          
  | _ \___ _ __ ___ _ _| |_ ___ ___  __| |___  | _ \_ _ ___ __| |_  _ __| |_ ___ ___

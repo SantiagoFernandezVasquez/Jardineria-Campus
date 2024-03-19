@@ -2,14 +2,28 @@ import os
 from tabulate import tabulate
 import requests
 
+def clear():
+    os.system('cls')
+clear()
+
 def  getAllOficinas():
-     petition = requests.get('http://172.16.106.94:3000/0')
+     petition = requests.get('http://localhost:3000/oficinas')
      data = petition.json()
      return data
 
+def getAllOficinasTelefono(telefono):
+     for val in getAllOficinas():
+        if(val.get('telefono') == telefono):
+            return[val]  
+
+def getAllOficinaCodigo(codigo):
+    for val in getAllOficinas():
+        if(val.get('codigo_cliente') == codigo):
+            return[val]
+        
 def getAllCodigoCiudad():
     codigoCiudad = list()
-    for val in getAllOficinas.oficina:
+    for val in getAllOficinas():
         codigoCiudad.append({
             "Codigo_oficina": val.get("codigo_oficina"),
             "Ciudad": val.get("ciudad") 
@@ -18,7 +32,7 @@ def getAllCodigoCiudad():
 
 def getAllCiudadTelefono(pais):
     ciudadTelefono = []
-    for val in getAllOficinas.oficina:
+    for val in getAllOficinas():
         if(val.get("pais") == pais):
             ciudadTelefono.append({
                 "Ciudad": val.get("ciudad"),
@@ -30,6 +44,7 @@ def getAllCiudadTelefono(pais):
         
 def menu():
     while True:
+        clear()
         print("""
   ___                  _               _            __ _    _           
  | _ \___ _ __ ___ _ _| |_ ___ ___  __| |___   ___ / _(_)__(_)_ _  __ _ 
