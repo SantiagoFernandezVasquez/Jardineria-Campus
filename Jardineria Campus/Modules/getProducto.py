@@ -1,4 +1,5 @@
 import os
+import re
 from tabulate import tabulate
 import requests
 
@@ -60,6 +61,8 @@ def menu():
               2. Regresar al Menu Principal
  """)
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
+        if(re.match(r'^[1-3]$', opcion)):
+            opcion = int(opcion)
         if opcion == 1:
             gama = input("Ingrese la gama del producto: ")
             stock = int(input("Ingrese las unidades del producto que desea mostrar: "))

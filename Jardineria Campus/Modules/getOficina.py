@@ -1,4 +1,5 @@
 import os
+import re
 from tabulate import tabulate
 import requests
 
@@ -61,6 +62,8 @@ def menu():
     3. Regresar al Menu Principal
 """)
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
+        if(re.match(r'^[1-3]$', opcion)):
+            opcion = int(opcion)
         if(opcion == 1):
             print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="fancy_grid"))
             input("Presione una letra para continuar.....")

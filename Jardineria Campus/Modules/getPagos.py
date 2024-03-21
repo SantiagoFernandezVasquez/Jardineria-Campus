@@ -1,7 +1,11 @@
 import os
+import re
 from tabulate import tabulate
 import requests
 
+def clear():
+    os.system('cls')
+clear()
 def  getAllPagos():
      petition = requests.get('http://localhost:5005/pagos')
      data = petition.json()
@@ -58,6 +62,7 @@ def getAllModosPago():
 
 def menu():
     while True:
+        clear()
         print(""" 
   ___                  _               _                             
  | _ \___ _ __ ___ _ _| |_ ___ ___  __| |___   _ __ __ _ __ _ ___ ___
@@ -71,6 +76,8 @@ def menu():
     4. Regresar al Menu Principal
  """)
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
+        if(re.match(r'^[1-4]$', opcion)):
+            opcion = int(opcion)
         if(opcion == 1):
             print(tabulate(getAllCodigosPagosAño(), headers="keys", tablefmt="fancy_grid"))
             input("Presione una letra para continuar.....")

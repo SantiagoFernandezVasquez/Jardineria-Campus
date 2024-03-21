@@ -1,4 +1,5 @@
 import os
+import re
 from tabulate import tabulate
 import requests
 from datetime import datetime
@@ -118,6 +119,8 @@ def menu():
         6. Regresar al Menu Principal
     """)
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
+        if(re.match(r'^[1-6]$', opcion)):
+            opcion = int(opcion)
         if opcion == 1:
             print(tabulate(getAllProcesoPedido(), headers="keys", tablefmt="fancy_grid"))
             input("Presione una letra para continuar.....")

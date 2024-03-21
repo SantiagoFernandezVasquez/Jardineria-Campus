@@ -111,6 +111,8 @@ def menu():
               3. Regresar al menu principal
  """)
         opcion = (input("\nSeleccione la opcion que le gustaria realizar: "))
+        if(re.match(r'^[1-3]$', opcion)):
+            opcion = int(opcion)
         if opcion == 1:
             print(tabulate(postPedido(), headers="keys", tablefmt="fancy_grid"))
         elif opcion == 2:
