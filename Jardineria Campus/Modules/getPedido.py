@@ -3,11 +3,20 @@ from tabulate import tabulate
 import requests
 from datetime import datetime
 
+def clear():
+    os.system('cls')
+clear()
+
 def  getAllPedidos():
-     petition = requests.get('http://172.16.106.94:3000/0')
+     petition = requests.get('http://localhost:5004/pedidos')
      data = petition.json()
      return data
 
+def getAllPedidosId(id):
+    for val in getAllPedidos():
+        if(val.get('id') == id):
+            return[val]
+        
 def getAllPedidosCodigo(codigo):
     for val in getAllPedidos():
         if(val.get('codigo_cliente') == codigo):
@@ -93,6 +102,7 @@ def getAllPedidosEnero():
 
 def menu():
     while True:
+        clear()
         print(""" 
   ___                  _               _                   _ _    _        
  | _ \___ _ __ ___ _ _| |_ ___ ___  __| |___   _ __ ___ __| (_)__| |___ ___
@@ -110,13 +120,18 @@ def menu():
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
         if opcion == 1:
             print(tabulate(getAllProcesoPedido(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 2:
             print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 3:
             print(tabulate(getAllPedidosEntregadosConAntelacion(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 4:
             print(tabulate(getAllPedidosRechazados(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 5:
             print(tabulate(getAllPedidosEnero(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 6:
             break

@@ -7,7 +7,7 @@ def clear():
 clear()
 
 def  getAllOficinas():
-     petition = requests.get('http://localhost:3000/oficinas')
+     petition = requests.get('http://localhost:5002/oficinas')
      data = petition.json()
      return data
 
@@ -20,7 +20,11 @@ def getAllOficinaCodigo(codigo):
     for val in getAllOficinas():
         if(val.get('codigo_cliente') == codigo):
             return[val]
-        
+    
+def getAllOficinaId(id): 
+    for val in getAllOficinas():
+        if(val.get('id') == id):
+            return[val]
 def getAllCodigoCiudad():
     codigoCiudad = list()
     for val in getAllOficinas():
@@ -59,10 +63,11 @@ def menu():
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
         if(opcion == 1):
             print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif(opcion == 2):
-                pais = str(input("Ingrese el pais: "))
-                print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="fancy_grid"))
-            
+            pais = str(input("Ingrese el pais: "))
+            print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 3:
             break
 

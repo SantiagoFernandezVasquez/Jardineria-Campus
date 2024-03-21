@@ -91,11 +91,29 @@ def postOficina():
         except Exception as error:
             print(error)        
 
-    peticion = requests.post("http://localhost:3000/oficinas", data=json.dumps(oficina))
+    peticion = requests.post("http://localhost:5002/oficinas", data=json.dumps(oficina))
     res = peticion.json()
     res["Mensaje"]= "Oficina Guardada"
     return [res]
 
+def borrarOficina(id):
+    data = gO.getAllOficinaId(id)
+    if (len(data)):
+        peticion = requests.delete(f"http://localhost:5002/oficinas/{id}")
+        if(peticion.status_code == 204):
+            data.append({"message": "Oficina eliminada"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }
+        else:
+            return {
+                "body":[{
+                    "message": "Oficina no encontrada",
+                    "id": id
+                }],
+                "status": 400,
+            }
 def menu():
     while True:
         clear()
@@ -106,11 +124,16 @@ def menu():
  /_/ \_\__,_|_|_|_|_|_||_|_/__/\__|_| \__,_|_|   \__,_\__,_|\__\___/__/ \__,_\___|  \___/|_| |_\__|_|_||_\__,_|
                                                                                                                
                             1. Ingresar los datos de una oficina nueva
-                            2. Regresar al menu principal                                                    
+                            2. Eliminar una oficina         
+                            3. Regresar al menu principal              
  """)
-        opcion = int(input("\nIngrese la opcion que desea realizar: "))
+        opcion = (input("\nSeleccione la opcion que le gustaria realizar: "))
         if opcion == 1:
             print(tabulate(postOficina(), headers="keys", tablefmt="fancy_grid"))
             input("Presione una tecla para continuar.....")
         elif opcion == 2:
+            id = input("Ingrese el id de la oficina que desea eliminar: ")
+            print(borrarOficina(id))
+            input("Presione una tecla para continuar.....")
+        elif opcion == 3:
             break

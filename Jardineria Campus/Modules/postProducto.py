@@ -87,7 +87,7 @@ def postProducto():
             print(error)
 
 
-    peticion = requests.post("http://localhost:3000/productos", data=json.dumps(producto))
+    peticion = requests.post("http://localhost:5006/productos", data=json.dumps(producto))
     res = peticion.json()
     res["Mensaje"] = "Producto Guardado"
     return [res]
@@ -95,7 +95,7 @@ def postProducto():
 def borrarProducto(id):
     data = gP.getProductoCodigo(id)
     if (len(data)):
-        peticion = requests.delete(f"http://localhost:3000/productos/{id}")
+        peticion = requests.delete(f"http://localhost:5006/productos/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "Producto eliminado"})
             return {
@@ -124,7 +124,7 @@ def menu():
               2. Eliminar un producto 
               3. Regresar al menu de productos
  """)
-        opcion = int(input("\nSeleccione una de las opciones: "))
+        opcion = (input("\nSeleccione la opcion que le gustaria realizar: "))
         if opcion == 1:
             print(tabulate(postProducto(), headers="keys", tablefmt="fancy_grid"))
             input("Presione una letra para continuar.....")

@@ -3,14 +3,20 @@ from tabulate import tabulate
 import requests
 
 def  getAllEmpleados():
-     petition = requests.get('http://172.16.106.94:3000/0')
+     petition = requests.get('http://localhost:3000/empleados')
      data = petition.json()
      return data
 
+def getAllEmpleadoId(id):
+    for val in getAllEmpleados():
+        if(val.get('id') == id):
+            return[val]
+        
 def getAllEmpleadoCodigo(codigo):
     for val in getAllEmpleados():
         if(val.get('codigo_cliente') == codigo):
             return[val]
+        
 
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail = []
@@ -71,11 +77,14 @@ def menu():
         if opcion == 1:
             codigo = int(input("Ingrese el codigo del jefe: "))
             print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 2:
             nombre = int(input("Ingrese el nombre del jefe: "))
             print(tabulate(getAllCodigoPuestoNombreApellidos(nombre), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 3:
             print(tabulate(getAllNombreApellidoNombresPuesto(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 4:
             break
     

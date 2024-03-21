@@ -3,9 +3,20 @@ from tabulate import tabulate
 import requests
 
 def  getAllPagos():
-     petition = requests.get('http://172.16.106.94:3000/0')
+     petition = requests.get('http://localhost:5005/pagos')
      data = petition.json()
      return data
+
+def getAllPagosId(id):
+    for val in getAllPagos():
+        if(val.get('id') == id):
+            return[val]
+
+def getAllPagosCodigo(codigo):
+    for val in getAllPagos():
+        if(val.get('codigo_cliente') == codigo):
+            return[val]
+
 
 def getAllCodigosPagosAño():
     CodigosAño = []
@@ -62,9 +73,12 @@ def menu():
         opcion = int(input("\nIngrese la opcion que desea realizar: "))
         if(opcion == 1):
             print(tabulate(getAllCodigosPagosAño(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif(opcion == 2):
             print(tabulate(getAllPagosPaypalAño(), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif(opcion == 3):
             print(tabulate(getAllModosPago(), tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 4:
             break

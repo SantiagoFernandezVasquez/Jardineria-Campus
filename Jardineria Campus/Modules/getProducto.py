@@ -7,7 +7,7 @@ def clear():
 clear()
 
 def GetAllData():
-    peticion = requests.get('http://localhost:3000/productos')
+    peticion = requests.get('http://localhost:5006/productos')
     data = peticion.json()
     return data
 
@@ -44,7 +44,7 @@ def getAllStocksPrecioGama(gama, stock):
     return condiciones
 
 def getProductoCodigo(codigo):
-    peticion = requests.get(f"http:localhost:3000/productos/{codigo}")
+    peticion = requests.get(f"http:localhost:5006/productos/{codigo}")
     return[peticion.json()] if peticion.ok  else[]
 def menu():
     while True:
@@ -64,6 +64,7 @@ def menu():
             gama = input("Ingrese la gama del producto: ")
             stock = int(input("Ingrese las unidades del producto que desea mostrar: "))
             print(tabulate(getAllStocksPrecioGama(gama, stock), headers="keys", tablefmt="fancy_grid"))
+            input("Presione una letra para continuar.....")
         elif opcion == 2:
             break
 

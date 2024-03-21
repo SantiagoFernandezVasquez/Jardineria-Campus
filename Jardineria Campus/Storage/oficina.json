@@ -98,17 +98,6 @@
       "linea_direccion1": "4-1 Kioicho",
       "linea_direccion2": "",
       "id": "3de0"
-    },
-    {
-      "id": "22f8",
-      "codigo_oficina": "TOK-JP",
-      "Ciudad": "Tokio",
-      "Pais": "Japon",
-      "Region": "ChiyodaKu",
-      "Codigo Postal": "1028578",
-      "Telefono": "332245000",
-      "Linea Direccion1": "4-1 Kioicho",
-      "Linea Direccion2": "null"
     }
   ]
 }

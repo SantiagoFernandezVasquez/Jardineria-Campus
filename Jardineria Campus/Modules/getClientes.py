@@ -7,20 +7,20 @@ def clear():
 clear()
 
 def  getAllClientes():
-     petition = requests.get("http://localhost:3000/clientes")
+     petition = requests.get("http://localhost:5001/clientes")
      data = petition.json()
      return data
 
 def getAllClienteId(id):
-     for val in getAllClientes():
-         if(val.get('codigo_cliente') == id):
+    for val in getAllClientes():
+         if(val.get('id') == id):
              return[val]
 
 def getAllClienteCodigo(codigo):
     for val in getAllClientes():
         if(val.get('codigo_cliente') == codigo):
             return[val]
-
+    
 def getAllClienteName():
     clienteName = []
     for i,val in enumerate(getAllClientes):
@@ -94,7 +94,7 @@ def getAllClientFax(fax):
                         "Fax": val.get('fax'),
                         "Origen": f"{val.get('pais')} {val.get('region')} {val.get('ciudad')} {val.get('codigo_postal')}"
                   })
-                  return clienteFax
+      return clienteFax
 
 def getAllClientTelefono(telefono):
      for val in getAllClientes():
@@ -136,25 +136,32 @@ def menu():
          opcion = int(input("\nIngrese la opcion que desea realizar: "))
          if opcion == 1:
               print(tabulate(getAllClienteName(), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 2:
               codigo = int(input("Ingrese el codigo del cliente: "))
               print(tabulate(getOneClienteCodigo(codigo), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 3:
               limiteCredit = float(input("Ingrese el limite de credito del cliente: "))
               ciudad = str(input("Ingrese la ciudad del cliente: "))
               print(tabulate(getAllClientCreditCiudad(limiteCredit, ciudad), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 4:
               pais = str(input("Ingrese el pais del cliente: "))
               region = str(input("Ingrese la region del cliente: "))
               ciudad = str(input("Ingrese la ciudad del cliente: "))
               print(tabulate(getAllClientPaisRegionCiudad(pais, region, ciudad), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 5:
               codigo_postal = str(input("Ingrese el codigo postal del cliente: "))
               print(tabulate(getAllClienteCodigoPostal(codigo_postal), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 6:
               fax = str(input("Ingrese el fax del cliente: "))
               print(tabulate(getAllClientFax(fax), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 7:
               print(tabulate(getAllEspañaClientes(), headers="keys", tablefmt="fancy_grid"))
+              input("Presione una tecla para continuar.....")
          elif opcion == 8:
               break
